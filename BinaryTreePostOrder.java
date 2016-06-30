@@ -7,23 +7,27 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class BinaryTreePostOrder {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> l = new ArrayList<Integer>();
-        Stack<TreeNode> s = new Stack<TreeNode>();
-        
+        Stack<TreeNode> s1 = new Stack<TreeNode>();
+        Stack<TreeNode> s2 = new Stack<TreeNode>();
         if(root != null)
-            s.push(root);
+        s1.push(root);
+        while( !s1.empty() ){
+            TreeNode x = s1.pop();
+            s2.push(x);
+            if(x.left != null)
+                s1.push(x.left);
+            if(x.right != null)
+                s1.push(x.right);
             
-        while(s.empty() != true){
-            TreeNode t = s.pop();
-            l.add(t.val);
-            if(t.right != null)    
-                s.push(t.right);
-            if(t.left != null)
-                s.push(t.left);
         }
-     return l;   
+        while(!s2.empty()){
+            TreeNode x = s2.pop();
+            l.add(x.val);
+        }
+    return l;
+        
     }
 }
